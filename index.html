@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javis - AI Chatting Simulator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .chat-container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            width: 400px;
+            max-width: 100%;
+            padding: 20px;
+        }
+        .chat-box {
+            border: 1px solid #ccc;
+            padding: 10px;
+            height: 300px;
+            overflow-y: auto;
+            margin-bottom: 10px;
+        }
+        .chat-box p {
+            margin: 0;
+            padding: 5px 0;
+        }
+        .user {
+            color: #007BFF;
+        }
+        .javis {
+            color: #28A745;
+        }
+        input[type="text"] {
+            width: calc(100% - 80px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 60px;
+            padding: 10px;
+            border: none;
+            background-color: #007BFF;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="chat-container">
+    <div class="chat-box" id="chatBox">
+        <p class="javis">Javis: Hello! I am Javis, your AI chat assistant. How can I help you today?</p>
+    </div>
+    <input type="text" id="userInput" placeholder="Type a message..." />
+    <button onclick="sendMessage()">Send</button>
+</div>
+
+<script>
+    const chatBox = document.getElementById('chatBox');
+    const userInput = document.getElementById('userInput');
+
+    function sendMessage() {
+        const userText = userInput.value.trim();
+        if (userText !== "") {
+            addMessage('user', userText);
+            userInput.value = '';
+            generateJavisResponse(userText);
+        }
+    }
+
+    function addMessage(sender, text) {
+        const message = document.createElement('p');
+        message.className = sender;
+        message.textContent = sender.charAt(0).toUpperCase() + sender.slice(1) + ": " + text;
+        chatBox.appendChild(message);
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function generateJavisResponse(userText) {
+        let response = "I'm not sure how to respond to that.";
+        if (userText.toLowerCase().includes('hello')) {
+            response = "Hello! How can I assist you today?";
+        } else if (userText.toLowerCase().includes('how are you')) {
+            response = "I'm just a bunch of code, but thanks for asking!";
+        } else if (userText.toLowerCase().includes('what is your name')) {
+            response = "My name is Javis, your AI chat assistant.";
+        } else if (userText.toLowerCase().includes('bye')) {
+            response = "Goodbye! Have a great day!";
+        }
+
+        setTimeout(() => {
+            addMessage('javis', response);
+        }, 500); // Simulate a brief delay before Javis responds
+    }
+</script>
+
+</body>
+</html>
